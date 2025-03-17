@@ -1,0 +1,166 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+:root {
+	--sub-color: #3e3e3e;
+	--main-color: #fff;
+	--t-color: rgba(255, 255, 255, 0.5);
+	--dur: 1s;
+}
+
+body {
+	background: #090809;
+}
+
+.container {
+	margin: auto;
+}
+
+.mouse {
+	width: 32px;
+	height: 54px;
+	border: 2px solid var(--sub-color);
+	border-radius: 20px;
+	margin-bottom: 8px;
+}
+
+.mouse-wheel {
+	width: 2px;
+	height: 16px;
+	margin: 8px auto;
+	background-color: var(--sub-color);
+	border-radius: 1px;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		--y-0: -100%;
+		--y-100: 200%;
+
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 60%;
+		width: 100%;
+		background-image: linear-gradient(
+			to bottom,
+			var(--t-color),
+			var(--main-color),
+			var(--t-color)
+		);
+		animation: breath var(--dur) ease infinite;
+		animation-delay: calc(var(--dur) * -0.38);
+	}
+}
+
+.arrow {
+	margin: auto;
+	width: 20px;
+	height: 20px;
+	position: relative;
+	transform: rotate(45deg);
+}
+
+.arrow-core {
+	width: 2px;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: calc(50% - 1px);
+	background-color: var(--sub-color);
+	transform: rotate(-45deg) translateY(15%);
+	overflow: hidden;
+
+	&::before {
+		--y-0: -100%;
+		--y-100: 200%;
+
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 60%;
+		width: 100%;
+		background-image: linear-gradient(
+			to bottom,
+			var(--t-color),
+			var(--main-color),
+			var(--t-color)
+		);
+		animation: breath var(--dur) ease infinite;
+	}
+}
+
+.arrow-head {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background-color: var(--sub-color);
+	overflow: hidden;
+
+	&::before {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		animation: breath var(--dur) ease calc(var(--dur) * -0.6) infinite;
+	}
+
+	&.--left {
+		width: 60%;
+		height: 2px;
+
+		&::before {
+			--x-0: 100%;
+			--x-100: -200%;
+
+			width: 100%;
+			height: 100%;
+			background-image: linear-gradient(
+				to right,
+				var(--t-color),
+				var(--main-color),
+				var(--t-color)
+			);
+		}
+	}
+
+	&.--right {
+		--y-0: 100%;
+		--y-100: -200%;
+
+		height: 60%;
+		width: 2px;
+
+		&::before {
+			--x-0: 100%;
+			--x-100: -200%;
+
+			height: 100%;
+			width: 100%;
+			background-image: linear-gradient(
+				to bottom,
+				var(--t-color),
+				var(--main-color),
+				var(--t-color)
+			);
+		}
+	}
+}
+
+@keyframes breath {
+	0%,
+	22% {
+		transform: translate(var(--x-0, 0), var(--y-0, 0));
+	}
+
+	100% {
+		transform: translate(var(--x-100, 0), var(--y-100, 0));
+	}
+}
